@@ -95,6 +95,12 @@ For another browser installation, install Playwright's Chromium with
 
 ## Deployment
 
+**Production:** https://kuy-daly-portfolio.vercel.app
+
+**GitHub:** https://github.com/seivkhengkhun/kuy-daly-portfolio
+
+**Production branch:** `main`
+
 Deploy the repository's `main` branch to Vercel with these settings:
 
 | Setting | Value |
@@ -114,8 +120,8 @@ npx vercel
 npx vercel --prod
 ```
 
-Use the production alias reported by Vercel as the shareable URL. Link the
-GitHub repository to Vercel to deploy future pushes to `main` automatically.
+The GitHub repository is connected to Vercel. Future pushes to `main` deploy
+automatically. Use the production URL above as the shareable address.
 Keep account credentials outside the repository. `.gitignore` excludes local
 environment files, Vercel account/project state, downloaded tools, build
 artifacts, browser reports, and local research. `.vercelignore` also excludes
