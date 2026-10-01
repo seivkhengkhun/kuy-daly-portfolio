@@ -1,0 +1,1 @@
+export const motion = { ease: "power3.out", duration: 0.85, desktop: "(min-width: 1024px) and (min-height: 720px) and (prefers-reduced-motion: no-preference)", reduced: "(prefers-reduced-motion: reduce)", finePointer: "(pointer: fine) and (hover: hover) and (prefers-reduced-motion: no-preference)" };

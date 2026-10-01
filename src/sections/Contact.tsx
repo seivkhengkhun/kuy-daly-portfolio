@@ -1,0 +1,7 @@
+import { profile } from "@/data/profile";
+import { Arrow } from "@/components/Arrow";
+import { MagneticLink } from "@/components/MagneticLink";
+
+export function Contact() {
+  return <section className="contact-section section-pad" id="contact" aria-labelledby="contact-title"><div className="contact-top mono"><span>06 / NEXT CHAPTER</span><span>{profile.availability.toUpperCase()} <span className="contact-status-dot" /></span></div><div className="contact-main"><h2 id="contact-title" data-reveal>LET&apos;S<br />BUILD<br /><span className="serif">SOMETHING.</span></h2><MagneticLink href={`mailto:${profile.email}`} className="contact-circle"><Arrow diagonal /><span className="sr-only">Email Kuy Daly</span></MagneticLink></div><div className="contact-bottom"><MagneticLink href={`mailto:${profile.email}`} className="email-link">{profile.email}<Arrow diagonal /></MagneticLink><div className="contact-socials"><MagneticLink href={profile.github} external>GitHub <Arrow diagonal /></MagneticLink><MagneticLink href={profile.linkedin} external>LinkedIn <Arrow diagonal /></MagneticLink>{profile.cv ? <MagneticLink href={profile.cv} external download>CV <Arrow diagonal /></MagneticLink> : <MagneticLink href={`mailto:${profile.email}?subject=CV%20request`}>Request CV <Arrow diagonal /></MagneticLink>}</div></div><footer className="site-footer mono"><span>© {profile.year} KUY DALY</span><span className="footer-middle">BUILT WITH INTENTION. ALWAYS ITERATING.</span><a href="#home">BACK TO TOP ↑</a></footer></section>;
+}

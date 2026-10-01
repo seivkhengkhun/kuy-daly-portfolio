@@ -1,0 +1,6 @@
+import Image from "next/image";
+import { profile } from "@/data/profile";
+
+export function About() {
+  return <section className="about-section section-pad" id="about" aria-labelledby="about-title"><div className="about-heading"><span className="eyebrow mono">02 / THE PERSON BEHIND THE PIXELS</span><h2 id="about-title" data-reveal>Curiosity is<br />part of the <span className="serif">stack.</span></h2></div><div className="about-body"><div className="portrait-wrap" data-reveal><Image src={profile.portrait} alt="Kuy Daly, developer and Information Technology student" width={640} height={800} sizes="(max-width: 768px) 80vw, 30vw" className="portrait" /><div className="portrait-label mono"><span>KUY DALY</span><span>CAMBODIA, KH</span></div><span className="portrait-plus" aria-hidden="true">+</span></div><div className="about-copy"><span className="mono about-greeting">HELLO, I&apos;M DALY.</span><h3 data-reveal>{profile.intro}</h3><p data-reveal>{profile.about}</p><p data-reveal>{profile.approach}</p><div className="current-focus" data-reveal><span className="focus-dot" /><div><span className="mono">CURRENT FOCUS</span><p>{profile.focus}</p></div></div></div></div><div className="about-footnote mono"><span>ALWAYS A STUDENT. ALWAYS BUILDING.</span><span>01 COMMIT AT A TIME.</span></div></section>;
+}
