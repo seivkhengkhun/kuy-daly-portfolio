@@ -18,8 +18,20 @@ export function Terminal() {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [announcement, setAnnouncement] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const nextId = useRef(2);
   useEffect(() => { const el = scrollRef.current; if (el) el.scrollTop = el.scrollHeight; }, [entries]);
+  useEffect(() => {
+    const viewport = window.visualViewport;
+    let frame = 0;
+    const keepInputVisible = () => {
+      if (!matchMedia("(max-width: 1023px)").matches || document.activeElement !== inputRef.current) return;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => inputRef.current?.scrollIntoView({ block: "nearest", behavior: "instant" }));
+    };
+    viewport?.addEventListener("resize", keepInputVisible);
+    return () => { cancelAnimationFrame(frame); viewport?.removeEventListener("resize", keepInputVisible); };
+  }, []);
 
   function execute(input: string) {
     const command = input.trim().toLowerCase();
@@ -42,7 +54,7 @@ export function Terminal() {
     setAnnouncement(output);
   }
 
-  return <div className="terminal-window"><div className="terminal-titlebar"><div className="terminal-dots" aria-hidden="true"><i /><i /><i /></div><span className="mono">daly — portfolio / interactive session</span><span className="terminal-title-end mono">zsh</span></div><div className="terminal-scroll" ref={scrollRef} data-lenis-prevent tabIndex={0} role="region" aria-label="Terminal output">{entries.map(entry => <div className={entry.command.toLowerCase() === "secret" ? "terminal-entry secret-output" : "terminal-entry"} key={entry.id}><div className="terminal-prompt"><span>daly@portfolio</span><span className="terminal-path">~ %</span><span className="terminal-command">{entry.command}</span></div><pre>{entry.output}</pre>{entry.href && <a className="terminal-result-link" href={entry.href} target={entry.href.startsWith("http") ? "_blank" : undefined} rel={entry.href.startsWith("http") ? "noopener noreferrer" : undefined}>{entry.label} ↗</a>}</div>)}<form className="terminal-input-row" onSubmit={event => { event.preventDefault(); execute(value); }}><label htmlFor="terminal-command"><span>daly@portfolio</span><span className="terminal-path">~ %</span><span className="sr-only">Terminal command</span></label><input id="terminal-command" name="command" type="text" value={value} onChange={e => setValue(e.target.value)} autoComplete="off" autoCapitalize="off" spellCheck={false} maxLength={120} placeholder="Type help to begin" onKeyDown={e => {
+  return <div className="terminal-window"><div className="terminal-titlebar"><div className="terminal-dots" aria-hidden="true"><i /><i /><i /></div><span className="mono">daly — portfolio / interactive session</span><span className="terminal-title-end mono">zsh</span></div><div className="terminal-scroll" ref={scrollRef} data-lenis-prevent tabIndex={0} role="region" aria-label="Terminal output">{entries.map(entry => <div className={entry.command.toLowerCase() === "secret" ? "terminal-entry secret-output" : "terminal-entry"} key={entry.id}><div className="terminal-prompt"><span>daly@portfolio</span><span className="terminal-path">~ %</span><span className="terminal-command">{entry.command}</span></div><pre>{entry.output}</pre>{entry.href && <a className="terminal-result-link" href={entry.href} target={entry.href.startsWith("http") ? "_blank" : undefined} rel={entry.href.startsWith("http") ? "noopener noreferrer" : undefined}>{entry.label} ↗</a>}</div>)}<form className="terminal-input-row" onSubmit={event => { event.preventDefault(); execute(value); }}><label htmlFor="terminal-command"><span>daly@portfolio</span><span className="terminal-path">~ %</span><span className="sr-only">Terminal command</span></label><input ref={inputRef} enterKeyHint="send" id="terminal-command" name="command" type="text" value={value} onChange={e => setValue(e.target.value)} autoComplete="off" autoCapitalize="off" spellCheck={false} maxLength={120} placeholder="Type help to begin" onKeyDown={e => {
       if (e.key === "ArrowUp" && history.length) { e.preventDefault(); const index = historyIndex < 0 ? history.length - 1 : Math.max(0, historyIndex - 1); setHistoryIndex(index); setValue(history[index]); }
       if (e.key === "ArrowDown" && historyIndex >= 0) { e.preventDefault(); const index = historyIndex + 1; if (index >= history.length) { setHistoryIndex(-1); setValue(""); } else { setHistoryIndex(index); setValue(history[index]); } }
       if (e.key === "Tab" && value.trim()) { const matches = commands.filter(c => c.startsWith(value.toLowerCase())); if (matches.length === 1) { e.preventDefault(); setValue(matches[0]); } }

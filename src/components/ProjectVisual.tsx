@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { Project } from "@/data/projects";
 
 export function ProjectVisual({ project }: { project: Project }) {
-  if (project.image) return <Image src={project.image} alt={`${project.name} — actual project interface`} fill sizes="(max-width: 768px) 92vw, 58vw" className="project-screenshot" />;
+  if (project.image) return <Image src={project.image} alt={`${project.name} — actual project interface`} fill sizes="(max-width: 1023px) 84vw, 58vw" className="project-screenshot" />;
   if (project.visual === "library") return <div className="source-visual">
     <div className="source-sidebar"><span className="source-logo">L<span>/</span></span><span>EXPLORER</span><div>▾ php_system</div>{["Book", "Borrow", "components", "Return.php", "Report.php", "library_db.sql"].map(x => <span key={x} className={x === "Book" ? "file active" : "file"}>{x.includes(".") ? "◇" : "▸"} {x}</span>)}<span className="sidebar-bottom">PHP / SQL</span></div>
     <div className="source-editor"><div className="source-tab">Book/getbook.php <span>×</span></div><div className="source-lines mono">{[

@@ -15,7 +15,7 @@ export function MotionSystem() {
     let lenis: Lenis | undefined;
     let tick: ((time: number) => void) | undefined;
     const reduce = matchMedia(motion.reduced);
-    const desktop = matchMedia("(min-width: 1024px)");
+    const desktop = matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine)");
     const configureScroll = () => {
       if (tick) gsap.ticker.remove(tick);
       lenis?.destroy(); lenis = undefined; tick = undefined;
@@ -30,7 +30,7 @@ export function MotionSystem() {
     reduce.addEventListener("change", configureScroll);
     desktop.addEventListener("change", configureScroll);
 
-    media.add("(prefers-reduced-motion: no-preference)", () => {
+    media.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
       const intro = gsap.timeline({ defaults: { ease: motion.ease } });
       intro.from(".hero-title > span", { yPercent: 22, opacity: 0, duration: 1.1, stagger: .12 })
         .from(".sculpture-svg", { scale: .75, rotation: -12, opacity: 0, duration: 1.25 }, .15)
@@ -39,6 +39,13 @@ export function MotionSystem() {
         gsap.from(el, { y: 36, opacity: 0, ...(el.matches("h2, h3") ? { clipPath: "inset(0 0 100% 0)" } : {}), duration: motion.duration, ease: motion.ease, scrollTrigger: { trigger: el, start: "top 91%", once: true } });
       });
       gsap.from(".section-heading h2, .section-heading p", { y: 45, opacity: 0, duration: .9, stagger: .12, scrollTrigger: { trigger: ".work-heading", start: "top 86%", once: true } });
+    });
+
+    media.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
+      gsap.from(".hero-title, .hero-kicker, .sculpture, .hero-aside, .hero-code", { y: 12, opacity: 0, duration: .55, stagger: .05, ease: "power2.out" });
+      gsap.utils.toArray<HTMLElement>("[data-reveal], .work-heading h2, .project-media").forEach(el => {
+        gsap.from(el, { y: 14, opacity: 0, duration: .55, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 94%", once: true } });
+      });
     });
 
     media.add(motion.desktop, () => {

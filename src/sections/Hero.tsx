@@ -11,6 +11,6 @@ export function Hero() {
     <Sculpture />
     <div className="hero-aside"><p>Thoughtful interfaces.<br />Useful systems.<br /><span className="muted">The code in between.</span></p><MagneticLink href="#work" className="hero-work-link">Explore my work <Arrow diagonal /></MagneticLink></div>
     <div className="hero-code mono"><span className="code-muted">const</span> developer = &#123;<br /><span className="indent">name: <span>&quot;Kuy Daly&quot;</span>,</span><br /><span className="indent">focus: <span>&quot;Full Stack&quot;</span>,</span><br /><span className="indent">status: <span>&quot;Building&quot;</span></span><br />&#125;</div>
-    <div className="hero-footer mono"><a href="#work" className="scroll-cue"><span className="scroll-line" />SCROLL TO EXPLORE</a><span className="hero-edition">{profile.year} PORTFOLIO / VOL. 01</span><span className="hero-index">[ 01 — 06 ]</span></div>
+    <div className="hero-footer mono"><a href="#work" className="scroll-cue"><span className="scroll-line" />SCROLL TO EXPLORE</a><span className="hero-edition">{profile.year} PORTFOLIO<span className="hero-volume"> / VOL. 01</span></span><span className="hero-index">[ 01 — 06 ]</span></div>
   </section>;
 }

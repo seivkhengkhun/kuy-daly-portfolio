@@ -41,6 +41,19 @@ npm start
 `npm start` serves the optimized production build at http://localhost:3000.
 The home page is statically prerendered; Vercel provides image optimization.
 
+## Responsive behavior
+
+Desktop (1024px and wider) retains the editorial composition, pointer effects,
+and cinematic project scrolling when the viewport is at least 720px tall.
+Tablet uses a compact menu, vertical projects, and larger image previews.
+Phones use a dedicated grid hero, images before project details, tap-controlled
+skills, and stacked contact links. Touch devices use native scrolling.
+Reduced motion disables scroll animation, and breakpoint changes clean up
+scroll triggers and pointer transforms.
+
+Browser checks cover 320–820px portrait widths, landscape layouts, menu scroll
+locking, terminal input resizing, reduced motion, and desktop regression.
+
 ## Project structure
 
 ```text
